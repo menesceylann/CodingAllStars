@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CSS Competence Unpaid Trial Task #2</title>
+  <style>
+    /* Temel Ayarlar */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #232323;
+      color: #FFF;
+      overflow: hidden;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      perspective: 1000px; /* perspective for 3D effect */
+    }
+
+    /* Interactive Button */
+    .color-changer {
+      background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
+      border: none;
+      color: white;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 20px;
+    }
+
+    .color-changer:active {
+      transform: scale(0.9);
+    }
+
+    /* Pseudo-Elements */
+    .fancy-border {
+      position: relative;
+      padding: 20px;
+      margin: 20px;
+      background-color: purple;
+      color: white;
+      overflow: hidden;
+    }
+    /* 3D Rotating Cube */
+    .cube {
+      width: 100px;
+      height: 100px;
+      position: relative;
+      transform-style: preserve-3d;
+      animation: rotateCube 8s infinite linear;
+    }
+
+    .cube-face {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: rgba(255,255,255,0.8);
+      border: 2px solid black;
+    }
+
+    .front  { transform: rotateY(  0deg) translateZ(50px); }
+    .back   { transform: rotateY(180deg) translateZ(50px); }
+    .left   { transform: rotateY( 90deg) translateZ(50px); }
+    .right  { transform: rotateY(-90deg) translateZ(50px); }
+    .top    { transform: rotateX( 90deg) translateZ(50px); }
+    .bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+    @keyframes rotateCube {
+      0%   { transform: rotate3d(1, 1, 0, 0deg); }
+      100% { transform: rotate3d(1, 1, 0, 360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Color Changer Button -->
+    <button class="color-changer" onclick="changeColors()">Color Changer</button>
+
+    <!-- Fancy Border -->
+    <div class="fancy-border">Coding Allstars</div>
+
+    <!-- 3D Rotating Cube -->
+    <div class="cube">
+      <div class="cube-face front"></div>
+      <div class="cube-face back"></div>
+      <div class="cube-face left"></div>
+      <div class="cube-face right"></div>
+      <div class="cube-face top"></div>
+      <div class="cube-face bottom"></div>
+    </div>
+  </div>
+
+  <script>
+    function randomColor() {
+      return '#' + Math.floor(Math.random()*16777215).toString(16);
+    }
+
+    function changeColors() {
+      document.body.style.backgroundColor = randomColor();
+      document.querySelector('.fancy-border').style.backgroundColor = randomColor();
+      const cubeFaces = document.querySelectorAll('.cube-face');
+      cubeFaces.forEach(face => face.style.background = randomColor());
+      document.querySelector('.color-changer').style.background = `linear-gradient(45deg, ${randomColor()} 30%, ${randomColor()} 90%)`;
+    }
+  </script>
+</body>
+</html>
